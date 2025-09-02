@@ -1,3 +1,4 @@
+#program.made using string manipulation 
 class gv():
 	use=[]
 	def varc(self,b):#create variable 
