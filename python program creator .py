@@ -58,6 +58,12 @@ class gv():
 		q=q[:(len(q)-2)]
 		return(q)
 		
+	def stri(self,x):
+		u=[]
+		for i in x :
+			u.append('"'+i+'"')
+		return(u)
+
 	def conc(self,v,y):
 		h=""
 		t=0
@@ -105,6 +111,7 @@ def procs ():
 	c=gv()
 	v=input ("enter idea-: ")
 	v=v.split(",")
+	v=c.stri(v)
 	y=c.varc(v)
 	o=c.conc(v,y)
 	z=c.varc(o)
@@ -116,8 +123,7 @@ def plo():
 	c=gv()
 	o=c.loop("true")
 	print(o)		
-			
-w=plo()
+				
 
 
 			
