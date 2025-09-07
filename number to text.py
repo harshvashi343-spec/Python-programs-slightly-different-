@@ -1,5 +1,6 @@
 def NTT(n):
-	ent=input ("english or hindi -: ").lower()
+	print("sanskrit gujartai hindi Marathi emglish")
+	ent=input ("language /भाशा-: ").lower()
 	def ntt(n):
 	    one=["zero","one","two","three","four","five","six","seven","eight","nine"]
 	    
