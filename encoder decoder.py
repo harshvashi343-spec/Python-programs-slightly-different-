@@ -11,7 +11,7 @@ try:
 except (FileNotFoundError, json.JSONDecodeError):
     d = {"use":{}}
     
-print('s -: show peoples, \nc -: generate key , \ncl -: clear every thing , \np -: add new person, \nps -: select key for person , \npd -: delete person , \ndd -: delete key from person (if you will add +del to person name no spacing it willclear all keys in person) , \ng -: give temporary  key to  encode or decode, \ngs -: save given key' )
+print('show -: show peoples, \nc -: generate key , \ncl -: clear every thing , \np -: add new person, \nps -: select key for person , \npd -: delete person , \ndd -: delete key from person (if you will add +del to person name no spacing it willclear all keys in person) , \ng -: give temporary  key to  encode or decode, \ngs -: save given key' )
 u=input("-:  ").lower()
 if u=="p":#add new person 
    p=input("enter new person -:").lower()
