@@ -1,0 +1,142 @@
+def isin(a,d,b):
+	if isinstance (a,(int,str,float)):
+		
+		if isinstance (d,dict):
+			if a in d.get(b) or a==d.get(b):
+				return(True,a)
+		else:
+				if b in a:
+					return(True)
+	else:
+		if isinstance (d,dict):
+						for o in a:
+							if o in d.get(b) or o == d.get(b):
+								return(True)
+								break
+		elif isinstance (d,(list,set,tuple)):
+								if b  in a:
+									return(True)
+	return (False)
+
+
+
+def ass(c):
+	for i in data["a"]:
+				if i!="cash":
+					ase=i
+					if ase=="share" or ass=="shares":
+						if "preference" in sp or "prefrence"in sp:
+							ase="prefrence share capital"
+							return (ase)
+						else:
+							ase="equily share capital"
+							return (ase)
+					else:
+						return (ase)
+	return ()
+def valc(v):#get numbers from data
+		l=[]
+		x=""
+		for i in (v+"."):
+			if i.isdigit():
+				x=x+str(i)
+			elif x.isdigit()==True and i.isdigit()==False:
+				l.append(int(x))
+				return (l[len(l)-1])
+				x=""
+		return("")
+x= input("enter text-: ")
+#print (x)
+val=valc(x)
+r={"sales":["sales","sold","sale"],"recive":["received","recive","got","recived"]}
+
+e={"purchase":["purchase","bought","purchased"],"pay":["paid","paid off"],"dep":["dep","depreciation", "deprecated"],"sallary":"sallary"}
+
+a=["building","plant and machinery","p & m","stock","furniture","debtors","goodwill","cash/bank","cash","investment","investments","bank","machine","investment"]
+
+l=["loan","creditors","creditor","capital"]
+
+ch=[r,e,a,l]
+i=None,None
+sp=x.split(" ")
+#print (sp)
+#check presence of assets liabilities revenue expense 
+data={"r":[],"e":[],"a":[],'l':[]}
+for i in ch:
+	for o in i:
+		lo=isin(sp,i,o)
+		if lo==True:
+			if i == r:
+				data["r"].append(o)
+			elif i == e:
+				data["e"].append(o)
+			elif i == a:
+				data['a'].append(o)
+			elif i == l:
+				data['l'].append(o)				
+#print (data)
+if ("purchase" in data["e"] or "sale" in data["r"]) and ("share" in sp or "shares" in sp or "debenture" in sp or "debentures" in sp):
+	if "share" in sp or "shares" in sp:
+		data["a"].append("share")
+		data["a"]. append ("cash")
+	else:
+		data["a"].append("debenture")
+		data["a"]. append ("cash")
+if "interest" in sp or "investment" in data["a"]  or "rent" in sp or "commission" in sp or "sallary" in data["e"] or "loan" in data["l"] or "stock" in data["a"] and "cash" not in data["a"]:
+	data["a"]. append ("cash")
+elif ("sales" in data["r"] or "purchase" in data["e"] )and "cash" not in data["a"] and data["a"]==[]:
+	sp.append("credit")
+elif ("sales" in data["r"] or "purchase" in data["e"] )and "cash" not in data["a"] and data["a"]!=[]:
+	data["a"]. append ("cash")
+#print (data)
+# check use of cash
+if  "cash" in data["a"] or "bank" in data["a"]:
+	if  "purchase" in data["e"] or {"purchase","paid"}.issubset(set(data["e"])):
+		if len(data["a"])>1:
+			ase=ass(data)
+			print (f"{ase} a/c dr. {val}\nto cash a/c cr {val}")
+		else:
+			print(f"purchase a/c dr. {val}\nto cash a/c cr {val}")
+	elif  "sales" in data["r"] or {"sales","recive"}.issubset(set(data["r"])):
+		if len(data["a"])>1:
+			aset=ass(data)
+			print (f"cash a/c dr. {val}\nto {aset} a/c cr {val}")
+		else:
+			print(f"cash a/c dr {val}\nto sales a/c cr {val}")
+	elif "pay" in data["e"] :
+		if "rent" in sp:
+			print (f"rent ac dr {val}\nto cash ac cr {val}")
+		elif "interest" in sp:
+			print (f"int on loan ac dr {val}\nto cash ac cr {val}")
+		elif "commission" in sp:
+			print (f"commission ac dr {val}\nto cash ac cr {val}")
+		elif "sallary" in data["e"]:
+			print (f"sallary ac dr {val}\nto cash ac cr {val}")
+		elif "loan" in data["l"]:
+				print(f"loan to person ac dr {val}\nto cash ac cr {val}")
+	elif "recive" in data["r"]:
+		if "rent" in sp :
+			print (f"cash ac dr {val}\nto rent ac cr {val}")
+		elif "interest" in sp :
+			print (f"cash ac dr {val}\nto int ac cr {val}")
+		elif "commission" in sp :
+			print (f"cash ac dr {val}\nto commission  ac cr {val}")
+		elif "sallary" in data["e"]:
+			print (f"cash ac dr {val}\nto sallary  ac cr {val}")
+		elif "loan" in data["l"]:
+			if "bank" in data["a"]:
+				print(f"cash ac dr {val}\nto loan from bank ac cr {val}")
+			else:
+				print(f"cash ac dr {val}\nto loan from person ac cr {val}")		
+						
+#check credit		
+elif "credit" in sp:
+	if  "purchase" in data["e"]  or {"purchase","paid"}.issubset(set(data["e"])):
+		print(f"purchase a/c dr {val}\nto creditor a/c cr {val}")
+	elif  "sales" in data["r"] or {"sales","recive"}.issubset(set(data["r"])):
+		print(f"debtor a/c dr {val}\nto sales a/c cr {val}")
+#depreciation
+elif "dep" in data["e"] and data["a"] !=[]:
+	ae=ass(data)
+	if ae!="":
+		print (f"depreciation ac dr {val}\nto {ae} ac cr {val}")
